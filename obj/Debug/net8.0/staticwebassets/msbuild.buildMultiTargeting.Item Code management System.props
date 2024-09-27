@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Item Code management System.props" />
+</Project>

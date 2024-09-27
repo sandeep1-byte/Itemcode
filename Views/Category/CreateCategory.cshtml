@@ -1,0 +1,43 @@
+﻿@model Item_Code_management_System.Models.Category
+
+<div class="container-fluid d-flex justify-content-center mt-5 w-100 vh-50">
+    <div class="col-md-6 col-lg-5 col-sm-8 mx-auto rounded p-4 shadow bg-light"
+         style="box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); padding: 40px; width: 400px;">
+        <!-- Fixed width for inner box -->
+        <h3 class="text-center mb-4 text-dark">Add Categories</h3> <!-- Change heading color to black -->
+        <form asp-action="CreateCategory" method="post">
+            <div class="form-group mb-4">
+                <label asp-for="CategoryName" class="form-label" style="font-weight: 500; color: black;">Category Name *</label> <!-- Explicitly set label color -->
+                <input type="text" asp-for="CategoryName" class="form-control" placeholder="Enter new category name" required style="color: black;" /> <!-- Explicitly set input text color -->
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+
+            <!-- Display success/error message -->
+            @if (TempData["msg"] != null)
+            {
+                <div id="tempMessage" class="alert alert-info mt-3">
+                    @TempData["msg"]
+                </div>
+            }
+
+            <!-- Button -->
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary px-4 py-2" style="width: 100%;">
+                    <i class="bi bi-save"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript to remove the temporary message after a delay -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var messageElement = document.getElementById("tempMessage");
+        if (messageElement) {
+            setTimeout(function () {
+                messageElement.style.display = 'none';
+            }, 2000); // Message will disappear after 5 seconds
+        }
+    });
+</script>

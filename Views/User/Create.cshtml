@@ -1,0 +1,57 @@
+﻿@model SignUpDto
+
+<div class="d-flex justify-content-center align-items-center vh-100 vw-100"
+     style="background-image: url('https://cdn.pixabay.com/photo/2023/02/08/08/50/frequency-wave-7776034_1280.jpg'); background-size: cover; background-position: center;">
+    <div class="w-25 col-md-6 col-lg-4 col-sm-8 mx-auto rounded border p-4 shadow"
+         style="box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); padding: 40px; background-color: white;">
+
+        <h2 class="text-center mb-4">Create Account</h2>
+
+        <form method="post">
+            <!-- Name Field -->
+            <div class="form-group mb-4">
+                <label class="form-label" style="font-weight: 500;">Name</label>
+                <div>
+                    <input class="form-control" asp-for="Name" style="width: 100%; padding: 7px;" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group mb-4">
+                <label class="form-label" style="font-weight: 500;">Email</label>
+                <div>
+                    <input class="form-control" asp-for="Email" style="width: 100%; padding: 7px;" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group mb-4">
+                <label class="form-label" style="font-weight: 500;">Password</label>
+                <div>
+                    <input class="form-control" asp-for="Password" type="password" style="width: 100%; padding: 7px;" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid mb-4">
+                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; padding: 10px 0;">
+                    Sign Up
+                </button>
+            </div>
+
+            <!-- Already Have Account Link -->
+            <div class="text-center">
+                <span>Already have an account? </span>
+                <a asp-controller="User" asp-action="SignIn" class="btn btn-link" style="padding-left: 5px;">
+                    Sign In
+                </a>
+            </div>
+        </form>
+
+        <!-- Include SweetAlert script -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </div>
+</div>

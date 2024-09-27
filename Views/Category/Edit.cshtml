@@ -1,0 +1,35 @@
+﻿@model Item_Code_management_System.Models.Category
+
+<div class="container mt-5">
+    <h3 class="text-center mb-4 text-dark">Edit Category</h3>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-info mt-3">
+            @TempData["msg"]
+        </div>
+    }
+
+    <form asp-action="Edit" method="post" class="form-group border shadow-sm p-4 rounded" style="max-width: 400px; margin: auto;">
+        @* @Html.AntiForgeryToken() *@
+
+        <div class="mb-3">
+            <label asp-for="CategoryName" class="form-label">Category Name</label>
+            <input asp-for="CategoryName" class="form-control" placeholder="Enter Category Name" required />
+            <span asp-validation-for="CategoryName" class="text-danger"></span>
+        </div>
+
+        <input type="hidden" asp-for="Id" />
+
+        <div class="d-flex justify-content-between text-center">
+            <button type="submit" class="btn btn-primary" style="width: 48%;">Save Changes</button>
+            <a asp-action="CategoryList" class="btn btn-secondary" style="width: 48%;">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<!-- JavaScript for validation -->
+@section Scripts {
+     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
