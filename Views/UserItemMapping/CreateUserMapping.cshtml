@@ -1,0 +1,110 @@
+﻿@model Item_Code_management_System.Models.UserCodeMappingDto
+
+<div class="container mt-5 ">
+    <form asp-action="CreateUserMapping" method="post" class="form-group border shadow-sm p-4 rounded" style="margin: auto; width: 500px; height: 500px; background-color: white; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+        <div class="text-center mb-4" style="padding: 10px; border-radius: 8px;">
+            <h4 style="margin: 0;">Create User Mapping</h4>
+        </div>
+
+        <div>
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+            }
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div id="success-message" class="alert alert-success" role="alert">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ItemCodeId" class="form-label">Item Code</label>
+            <select asp-for="ItemCodeId" class="form-select" asp-items="Model.AvailableItemCodes" required></select>
+            <span asp-validation-for="ItemCodeId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="UserItemCode" class="form-label">User Item Code</label>
+            <input asp-for="UserItemCode" class="form-control" placeholder="Enter User Item Code" required />
+            <span asp-validation-for="UserItemCode" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="UserPrice" class="form-label">User Price</label>
+            <input asp-for="UserPrice" class="form-control" type="number" step="0.01" placeholder="Enter User Price" required />
+            <span asp-validation-for="UserPrice" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary w-48">Create</button>
+            <a asp-action="UserMappingList" class="btn btn-secondary w-48">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        // Remove success message after 1 second (1000 ms)
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#success-message').fadeOut('slow');
+            }, 1000);
+        });
+    </script>
+}
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Light gray background */
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif; /* Consistent font */
+    }
+
+    .container {
+        /* No background color here */
+    }
+
+    /* Form box styles */
+    form {
+        width: 500px; /* Fixed width */
+        height: 500px; /* Fixed height */
+        background-color: white; /* White background for form */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        padding: 2rem; /* Padding inside the form */
+    }
+
+    .text-center {
+        padding: 10px; /* Padding for the header */
+    }
+
+    /* Button styles */
+    .btn {
+        border-radius: 30px;
+        padding: 10px; /* Padding */
+        font-weight: bold; /* Bold text */
+        width: 48%; /* Width for buttons */
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    /* Input styles */
+    .form-control {
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+</style>

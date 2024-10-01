@@ -22,7 +22,7 @@ namespace Item_Code_management_System.Models
         public string Unit { get; set; }
 
         [ForeignKey("CategoryId")]
-        public int CategoryId { get; set; } // Foreign key for item category
+        public int? CategoryId { get; set; } // Foreign key for item category
         public IEnumerable<SelectListItem>? Categories { get; set; } // For dropdown population
     }
 }

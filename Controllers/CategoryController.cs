@@ -26,6 +26,17 @@ namespace Item_Code_management_System.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check if the category already exists in the database
+                bool categoryExists = this.context.Categories
+                    .Any(c => c.CategoryName.ToLower() == category.CategoryName.ToLower()); // Compare in lowercase
+
+                if (categoryExists)
+                {
+                    // Add error to ModelState if the category already exists
+                    ModelState.AddModelError("CategoryName", "This category already exists. Please enter a different category name.");
+                    return View(category); // Return the view with the current model to show the error
+                }
+
                 // Add new category to the database
                 this.context.Categories.Add(category);
                 this.context.SaveChanges();
@@ -35,9 +46,10 @@ namespace Item_Code_management_System.Controllers
                 return RedirectToAction("CreateCategory");
             }
 
-  
-            return View(category);
+            return View(category); // Return the view with the current model if ModelState is invalid
         }
+
+
 
         public IActionResult CategoryList()
         {

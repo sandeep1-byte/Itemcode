@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 </head>
+
 <body class="m-0 p-0">
     <div style="display:flex; flex-direction:row" class="position-relative">
         <div class="bg-dark pt-4 position-absolute top-0 fixed-top" id="sidebar-wrapper" style="width: 250px; min-height: 100vh;">
@@ -31,7 +32,13 @@
                     <a class="list-group-item list-group-item-action bg-dark text-white text-center border-0 border-bottom" asp-controller="Product" asp-action="ProductList" style="border-color: white;">
                         <i class="fas fa-cog mr-2"></i>productList
                     </a>
-                    <a id="logoutButton" class="list-group-item list-group-item-action bg-dark text-white text-center border-0 border-bottom" style="border-color: white;" onclick="showLogoutConfirmation()">
+                    <a class="list-group-item list-group-item-action bg-dark text-white text-center border-0 border-bottom" asp-controller="UserItemMapping" asp-action="CreateUserMapping" style="border-color: white;">
+                        <i class="fas fa-cog mr-2"></i>CreateMapping
+                    </a>
+                    <a class="list-group-item list-group-item-action bg-dark text-white text-center border-0 border-bottom" asp-controller="UserItemMapping" asp-action="UserMappingList" style="border-color: white;">
+                        <i class="fas fa-cog mr-2"></i>MappingList
+                    </a>
+                    <a id="logoutButton" class="list-group-item list-group-item-action bg-dark text-white text-center border-0 border-bottom" style="border-color: white;cursor:pointer" onclick="showLogoutConfirmation()">
                         <i class="fas fa-sign-out-alt mr-2"></i>Logout
                     </a>
                 </div>
@@ -40,79 +47,43 @@
             <i class="bi bi-person-fill" title="Dashboard"></i><span class="nav__name">Dashboard</span>
             </a> *@
         </div>
-        <div class="d-flex vw-100">
+        <div class="d-flex justify-content-center align-items-center vw-100 vh-100" style=" background-color: #343a40;">
             <!-- Sidebar -->
             <div class="container-fluid">
                 <main role="main">
                     @RenderBody()
+
                 </main>
 
             </div>
-
 
             <!-- Page Content -->
 
         </div>
     </div>
-    @*   <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container-fluid">
-    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Item_Code_management_System</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-    <ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Create">SignUp</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SignIn">SignIn</a>
-    </li>
-    </ul>
-    </div>
-    </div>
-    </nav>
-    </header> *@
-
-
-    @* <footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; 2024 - Item_Code_management_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
-    </footer> *@
+   <script>
+        function showLogoutConfirmation() {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You will be logged out!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, logout!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Clear session storage
+                    sessionStorage.clear();
+                    // Redirect to the login page immediately
+                    window.location.href = '/User/SignIn';
+                }
+            });
+        }
+   </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
-@*
-<script>
-    function showLogoutConfirmation() {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You will be logged out of your account.',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, logout!',
-            cancelButtonText: 'Cancel',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Redirect to the logout action
-                window.location.href = '@Url.Action("Logout", "Account")';
-            }
-        });
-    }
-</script>
- *@

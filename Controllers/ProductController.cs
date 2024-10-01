@@ -70,16 +70,92 @@ public class ProductController : Controller
 
         // Add the new product to the database
         context.Products.Add(product);
-        context.SaveChanges();
+        context.SaveChanges();  
 
         // Set a success message in TempData and redirect to the product listing action
         TempData["SuccessMessage"] = "Product added successfully!";
-        return RedirectToAction("Index", "Product"); // Adjust the redirect action as needed
+        return RedirectToAction("ProductList", "Product"); // Adjust the redirect action as needed
     }
     public IActionResult ProductList()
     {
         var products = this.context.Products.ToList(); // Fetching all products from the database
         return View(products); // Returning the product list to the view
     }
+    public IActionResult Delete(int id)
+    {
+        var product = context.Products.Find(id);
+        if (product == null)
+        {
+            return RedirectToAction("ProductList", "Product"); // Redirect if the product doesn't exist
+        }
 
-}
+        context.Products.Remove(product); // Remove the product from the database
+        context.SaveChanges(); // Save changes
+
+        return RedirectToAction("ProductList", "Product"); // Redirect to the product list
+    }
+
+    public IActionResult Edit(int id)
+    {
+        var product = context.Products.Find(id);
+        if (product == null)
+        {
+            return NotFound(); // 404 if the product doesn't exist
+        }
+
+        var productDto = new ProductDto
+        {
+            Id = product.Id,
+            ItemCode = product.ItemCode,
+            Description = product.Description,
+            Price = product.Price,
+            Unit = product.Unit,
+            CategoryId = product.CategoryId,
+            Categories = context.Categories.Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.CategoryName
+            }).ToList()
+        };
+
+        return View(productDto); // Returning the product data with categories
+    }
+
+    [HttpPost]
+    public IActionResult Edit(int id, ProductDto productDto)
+    {
+        if (id != productDto.Id)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            var product = context.Products.Find(id);
+            if (product == null)
+            {
+                return NotFound(); // If product doesn't exist
+            }
+
+            // Updating product properties from the DTO
+            product.ItemCode = productDto.ItemCode;
+            product.Description = productDto.Description;
+            product.Price = productDto.Price;
+            product.Unit = productDto.Unit;
+            product.CategoryId = productDto.CategoryId;
+
+            context.Update(product); // Update the product
+            context.SaveChanges(); // Save the changes to the database
+            TempData["msg"] = "Product updated successfully!";
+            return RedirectToAction("ProductList", "Product"); // Redirect to the product list
+        }
+
+        productDto.Categories = context.Categories.Select(c => new SelectListItem
+        {
+            Value = c.Id.ToString(),
+            Text = c.CategoryName
+        }).ToList();
+
+        return View(productDto);
+    }
+    }

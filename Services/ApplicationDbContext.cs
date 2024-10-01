@@ -13,5 +13,8 @@ namespace Item_Code_management_System.Services
 
         public DbSet<Category>Categories { get; set; }
         public DbSet<Product>Products { get; set; }
+        public DbSet<UserItemCodeMapping> ItemCodeMappings { get; set; }
     }
 }
+
+

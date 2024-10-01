@@ -54,6 +54,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxDcmVhdGVQcm9kdWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/sandeep.varma/source/repos/Item Code management System/Item Code management System/Views/Product/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/sandeep.varma/source/repos/Item Code management System/Item Code management System/Views/Product/ProductList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxQcm9kdWN0TGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,6 +68,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/sandeep.varma/source/repos/Item Code management System/Item Code management System/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sandeep.varma/source/repos/Item Code management System/Item Code management System/Views/UserItemMapping/CreateUserMapping.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckl0ZW1NYXBwaW5nXENyZWF0ZVVzZXJNYXBwaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/sandeep.varma/source/repos/Item Code management System/Item Code management System/Views/UserItemMapping/UserMappingList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckl0ZW1NYXBwaW5nXFVzZXJNYXBwaW5nTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/sandeep.varma/source/repos/Item Code management System/Item Code management System/Views/User/Create.cshtml]

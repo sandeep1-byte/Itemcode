@@ -24,16 +24,14 @@ namespace Item_Code_management_System.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["ErrorMessage"] = "Please correctly Fill form.";
-                return View(userDto);
+                return Json(new { success = false, message = "Please correctly fill the form." });
             }
 
             // Check if the email already exists
             var existingUser = context.Users.FirstOrDefault(u => u.Email == userDto.Email);
             if (existingUser != null)
             {
-                TempData["ErrorMessage"] = "Email already in use.";
-                return View(userDto);
+                return Json(new { success = false, message = "Email already in use." });
             }
 
             User user = new User()
@@ -46,9 +44,9 @@ namespace Item_Code_management_System.Controllers
             context.Users.Add(user);
             context.SaveChanges();
 
-            TempData["SuccessMessage"] = "User registered successfully!";
-            return RedirectToAction("SignIn", "User");
+            return Json(new { success = true, message = "User registered successfully!" });
         }
+
 
         public IActionResult SignIn()
         {
@@ -58,22 +56,25 @@ namespace Item_Code_management_System.Controllers
         [HttpPost]
         public IActionResult SignIn(SignInDto userDto)
         {
-
             var user = context.Users.FirstOrDefault(u => u.Email == userDto.Email && u.Password == userDto.Password);
-            if (user == null)
-            {
-                TempData["ErrorMessage"] = "Invalid login attempt.";
-                return View(userDto);
-            }
+
             if (!ModelState.IsValid)
             {
-                TempData["ErrorMessage"] = "Please correctly Fill form.";
-                return View(userDto);
+                return Json(new { success = false, message = "Please correctly fill the form." });
+            }
+
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Invalid login attempt." });
             }
 
             // Log the user in (implement your authentication logic here)
 
-            TempData["SuccessMessage"] = "You have signed in successfully!";
+            // Store necessary data in TempData to access in the view
+            TempData["UserId"] = user.Id; // Store user ID
+            TempData["UserName"] = user.Name; // Store user name or other data as needed
+
+            return Json(new { success = true, message = "You have signed in successfully!", userId = user.Id, userName = user.Name });
             return RedirectToAction("Index", "DashBoard");
         }
     }

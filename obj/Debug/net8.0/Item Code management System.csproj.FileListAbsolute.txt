@@ -250,3 +250,8 @@ C:\Users\sandeep.varma\source\repos\Item Code management System\Item Code manage
 C:\Users\sandeep.varma\source\repos\Item Code management System\Item Code management System\obj\Debug\net8.0\Item Code management System.pdb
 C:\Users\sandeep.varma\source\repos\Item Code management System\Item Code management System\obj\Debug\net8.0\Item Code management System.genruntimeconfig.cache
 C:\Users\sandeep.varma\source\repos\Item Code management System\Item Code management System\obj\Debug\net8.0\ref\Item Code management System.dll
+C:\Users\sandeep.varma\source\repos\Item Code management System\Item Code management System\obj\Debug\net8.0\Item Code management System.sourcelink.json
+C:\Users\sandeep.varma\source\repos\Item Code management System\Item Code management System\bin\Debug\net8.0\EPPlus.dll
+C:\Users\sandeep.varma\source\repos\Item Code management System\Item Code management System\bin\Debug\net8.0\EPPlus.Interfaces.dll
+C:\Users\sandeep.varma\source\repos\Item Code management System\Item Code management System\bin\Debug\net8.0\EPPlus.System.Drawing.dll
+C:\Users\sandeep.varma\source\repos\Item Code management System\Item Code management System\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll

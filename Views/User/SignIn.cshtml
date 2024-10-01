@@ -1,20 +1,69 @@
 ﻿@model SignInDto
 @{
+    Layout = null;
 }
 
-<div class="d-flex justify-content-center align-items-center vh-100 vw-100"
-     style="background-image: url('https://cdn.pixabay.com/photo/2023/02/08/08/50/frequency-wave-7776034_1280.jpg'); background-size: cover; background-position: center;">
-    <div class="w-25 col-md-6 col-lg-4 col-sm-8 mx-auto rounded border p-4 shadow"
-         style="box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); padding: 40px; background-color: white;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Item_Code_management_System</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Item_Code_management_System.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+</head>
+<style>
+    html, body {
+        height: 100%; /* Ensure full height for the body */
+        margin: 0; /* Remove default margin */
+        overflow: hidden; /* Prevent overflow */
+    }
 
-        <h2 class="text-center mb-4" style="margin-bottom: 30px;">Sign In</h2>
+    .background {
+        height: 100vh; /* Full viewport height */
+        display: flex; /* Use flexbox for centering */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        background-image: url('https://www.shutterstock.com/image-photo/businessman-using-technology-ai-help-260nw-2416960743.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative; /* Position relative for overlay */
+    }
 
-        <form method="post">
+    .overlay {
+        position: absolute; /* Position overlay on top of background */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+        z-index: 1; /* Place overlay above background */
+    }
+
+    .form-container {
+        width: 100%; /* Make the form container responsive */
+        max-width: 400px; /* Set max width */
+        background-color: white; /* Background color for form */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        padding: 40px; /* Padding inside the form */
+        position: relative; /* Position relative for stacking context */
+        z-index: 2; /* Place form above overlay */
+    }
+</style>
+
+<div class="background">
+    <div class="overlay"></div> <!-- Add the overlay div -->
+    <div class="form-container rounded border p-4 shadow">
+        <h2 class="text-center mb-4">Sign In</h2>
+
+        <form id="signInForm" method="post">
             <!-- Email Field -->
             <div class="form-group mb-4">
                 <label class="form-label" style="font-weight: 500;">Email</label>
                 <div>
-                    <input class="form-control" asp-for="Email" style="width: 100%; padding: 7px;" />
+                    <input class="form-control" asp-for="Email" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
@@ -23,14 +72,14 @@
             <div class="form-group mb-4">
                 <label class="form-label" style="font-weight: 500;">Password</label>
                 <div>
-                    <input class="form-control" asp-for="Password" type="password" style="width: 100%; padding: 7px;" />
+                    <input class="form-control" asp-for="Password" type="password" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
             </div>
 
             <!-- Submit Button -->
-            <div class="d-grid mb-4" style="margin-bottom: 30px;">
-                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; padding: 10px 0;">
+            <div class="d-grid mb-4">
+                <button type="submit" class="btn btn-primary btn-lg">
                     Sign In
                 </button>
             </div>
@@ -46,5 +95,56 @@
 
         <!-- Include SweetAlert script -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            // Handle form submission
+            document.getElementById('signInForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const formData = new FormData(this); // Gather the form data
+
+                // Send an AJAX POST request
+                fetch('@Url.Action("SignIn", "User")', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Store data in session storage
+                        sessionStorage.setItem('userId', data.userId);
+                        sessionStorage.setItem('userName', data.userName);
+
+                        // Show success message
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: data.message,
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            // Redirect to the dashboard after success message is displayed
+                            window.location.href = '@Url.Action("Index", "DashBoard")';
+                        });
+                    } else {
+                        // Show error message
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops!',
+                            text: data.message,
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        </script>
     </div>
 </div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
